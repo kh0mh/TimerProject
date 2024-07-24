@@ -12,39 +12,41 @@ using System.Windows.Forms;
 
 namespace Taimer
 {
-    //الكود سباغيتي , الي فيه حيل يعدله 
+    //الكود سباغيتي , الي فيه حيل يعدله    
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
-            
         }
 
+        struct TimerSMH
+        {
+            public int Seconds;
+            public int Minutes;
+            public int MilliSeconds;
+            public int Hours;
+            public int ClockSeconds;
+            public int ClockMinutes ;
+            public int ClockHours;
+            public int LabCount;
+            public string AM_PM;
 
-        int seconds = 0, minutes = 0, MilleSeconds = 0, Hours = 0;
-       
+        }
+
+        TimerSMH timerSMH;
         bool BreakTime = false, Check = true;
-
-        //int seconds2 = 0, minutes2 = 0, MilleSeconds2 = 0;
-        short LabCount = 0;
         DateTime dateTime = DateTime.Now;
-        int  ClockSeconds = 0, ClockMinuts = 0, ClockHors = 0;
-     
-        string ampm;
-
+              
         private void timer2_Tick(object sender, EventArgs e)
         {
             Clock();
         }
-        
         private void timer1_Tick(object sender, EventArgs e)
         {
             ShowTimer();
 
         }
-
-       
         private void gunaStartStop_Click(object sender, EventArgs e)
         {
            
@@ -68,59 +70,51 @@ namespace Taimer
             
             if (gunaLabReset.Text == "Reset")
             {
-                seconds = 0;
-                minutes = 0;
-                Hours = 0;
-                MilleSeconds = 0;
-                labStudyTimer.Text = $"{Hours:00}:{minutes:00}:{seconds:00}.{MilleSeconds:00}";
+                timerSMH.Seconds = 0;
+                timerSMH.Minutes = 0;
+                timerSMH.Hours = 0;
+                timerSMH.MilliSeconds = 0;
+                labStudyTimer.Text = $"{timerSMH.Hours:00}:{timerSMH.Minutes:00}:{timerSMH.Seconds:00}.{timerSMH.MilliSeconds:00}";
                 gunaLabReset.Text = "Lab";
                 gunaLabReset.Enabled = false;
-                LabCount = 0;
+                timerSMH.LabCount = 0;
                 lstBoxData.Items.Clear();
             }
             
             else if (gunaLabReset.Text == "Lab")
             {
-                LabCount++;
-                // lstBoxData.Items.Add("Lab\t\t" + LabCount);
-                lstBoxData.Items.Add("Lab " + LabCount + "              \t\t\t" + $"{minutes:00}:{seconds:00}.{MilleSeconds:00}");
+                timerSMH.LabCount++;
+                // lstBoxData.Items.Add("Lab\t\t" + timerSMH.LabCount);
+                lstBoxData.Items.Add("Lab " + timerSMH.LabCount + "              \t\t\t" + $"{timerSMH.Minutes:00}:{timerSMH.Seconds:00}.{timerSMH.MilliSeconds:00}");
                                      
             }
         }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        
-
         void Clock()
         {
             
 
             if(Check)
             {
-                ClockHors = dateTime.Hour % 12 ;
-                ClockMinuts = dateTime.Minute;
-                ClockSeconds = dateTime.Second - 1;
+                timerSMH.ClockHours = dateTime.Hour % 12 ;
+                timerSMH.ClockMinutes = dateTime.Minute;
+                timerSMH.ClockSeconds = dateTime.Second - 1;
 
-                ampm = dateTime.Hour < 12 ? "AM" : "PM";
+                timerSMH.AM_PM = dateTime.Hour < 12 ? "AM" : "PM";
                 Check = false;
             }
 
-            ClockSeconds++;
+            timerSMH.ClockSeconds++;
 
 
-            if (ClockSeconds == 60)
+            if (timerSMH.ClockSeconds == 60)
             {
-                ClockMinuts++;
-                ClockSeconds = 0;
+                timerSMH.ClockMinutes++;
+                timerSMH.ClockSeconds = 0;
 
-                if(ClockMinuts == 59)
+                if(timerSMH.ClockMinutes == 59)
                 {
-                    ClockHors++;
-                    ClockMinuts = 0;
+                    timerSMH.ClockHours++;
+                    timerSMH.ClockMinutes = 0;
                 }
 
             }
@@ -128,52 +122,36 @@ namespace Taimer
 
 
             
-            this.Text = $"{ClockHors:00}:{ClockMinuts:00}:{ClockSeconds:00} {ampm}";
+            this.Text = $"{timerSMH.ClockHours:00}:{timerSMH.ClockMinutes:00}:{timerSMH.ClockSeconds:00} {timerSMH.AM_PM}";
 
         }
-
-        //void SetBreakDuration(RadioButton radio)
-        //{
-        //    if(radio.Checked)
-        //    {
-        //        BreakDuration = Convert.ToInt32(radio.Tag);
-        //    }
-        //    else
-        //    {
-        //        BreakDuration = Convert.ToInt32(maskedTextBox1.Text);
-        //    }
-        //}
-
-
-    
-        //int BreakDuration = 1;
         void ShowTimer()
         {
             if (BreakTime == false)
             {
 
-                MilleSeconds++;
+                timerSMH.MilliSeconds++;
 
-                if (MilleSeconds == 99)
+                if (timerSMH.MilliSeconds == 99)
                 {
-                    MilleSeconds = 0;
-                    seconds++;
+                    timerSMH.MilliSeconds = 0;
+                    timerSMH.Seconds++;
                 }
 
-                if (seconds == 60)
+                if (timerSMH.Seconds == 60)
                 {
-                    seconds = 0;
-                    minutes++;
+                    timerSMH.Seconds = 0;
+                    timerSMH.Minutes++;
 
                 }
 
-                if (minutes == 60)
+                if (timerSMH.Minutes == 60)
                 {
-                    minutes = 0;
-                    Hours++;
+                    timerSMH.Minutes = 0;
+                    timerSMH.Hours++;
                 }
 
-                labStudyTimer.Text = $"{Hours:00}:{minutes:00}:{seconds:00}.{MilleSeconds:00}";
+                labStudyTimer.Text = $"{timerSMH.Hours:00}:{timerSMH.Minutes:00}:{timerSMH.Seconds:00}.{timerSMH.MilliSeconds:00}";
 
             }
 
