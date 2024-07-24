@@ -12,6 +12,7 @@ using System.Windows.Forms;
 
 namespace Taimer
 {
+    //الكود سباغيتي , الي فيه حيل يعدله 
     public partial class Form1 : Form
     {
         public Form1()
@@ -25,7 +26,7 @@ namespace Taimer
        
         bool BreakTime = false, Check = true;
 
-        int seconds2 = 0, minutes2 = 0, MilleSeconds2 = 0;
+        //int seconds2 = 0, minutes2 = 0, MilleSeconds2 = 0;
         short LabCount = 0;
         DateTime dateTime = DateTime.Now;
         int  ClockSeconds = 0, ClockMinuts = 0, ClockHors = 0;
@@ -145,7 +146,7 @@ namespace Taimer
 
 
     
-        int BreakDuration = 1;
+        //int BreakDuration = 1;
         void ShowTimer()
         {
             if (BreakTime == false)
