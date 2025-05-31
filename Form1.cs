@@ -9,10 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-
 namespace Taimer
 {
-    //الكود سباغيتي , الي فيه حيل يعدله    
+    //الكود إندومي , الي فيه حيل يعدله    
     public partial class Form1 : Form
     {
         public Form1()
@@ -42,18 +41,18 @@ namespace Taimer
         {
             Clock();
         }
+        
         private void timer1_Tick(object sender, EventArgs e)
         {
             ShowTimer();
-
         }
+        
         private void gunaStartStop_Click(object sender, EventArgs e)
         {
            
             if (timer1.Enabled)
             {
                 timer1.Stop();
-                
                 gunaLabReset.Text = "Reset";
                 gunaStartStop.Text = "Start";
             }
@@ -65,6 +64,7 @@ namespace Taimer
                 gunaStartStop.Text = "Stop";
             }
         }
+        
         private void gunaLabReset_Click(object sender, EventArgs e)
         {
             
@@ -86,13 +86,11 @@ namespace Taimer
                 timerSMH.LabCount++;
                 // lstBoxData.Items.Add("Lab\t\t" + timerSMH.LabCount);
                 lstBoxData.Items.Add("Lab " + timerSMH.LabCount + "              \t\t\t" + $"{timerSMH.Minutes:00}:{timerSMH.Seconds:00}.{timerSMH.MilliSeconds:00}");
-                                     
             }
         }
+        
         void Clock()
         {
-            
-
             if(Check)
             {
                 timerSMH.ClockHours = dateTime.Hour % 12 ;
@@ -104,7 +102,6 @@ namespace Taimer
             }
 
             timerSMH.ClockSeconds++;
-
 
             if (timerSMH.ClockSeconds == 60)
             {
@@ -119,17 +116,13 @@ namespace Taimer
 
             }
 
-
-
-            
             this.Text = $"{timerSMH.ClockHours:00}:{timerSMH.ClockMinutes:00}:{timerSMH.ClockSeconds:00} {timerSMH.AM_PM}";
-
         }
+        
         void ShowTimer()
         {
             if (BreakTime == false)
             {
-
                 timerSMH.MilliSeconds++;
 
                 if (timerSMH.MilliSeconds == 99)
@@ -137,20 +130,16 @@ namespace Taimer
                     timerSMH.MilliSeconds = 0;
                     timerSMH.Seconds++;
                 }
-
                 if (timerSMH.Seconds == 60)
                 {
                     timerSMH.Seconds = 0;
                     timerSMH.Minutes++;
-
                 }
-
                 if (timerSMH.Minutes == 60)
                 {
                     timerSMH.Minutes = 0;
                     timerSMH.Hours++;
                 }
-
                 labStudyTimer.Text = $"{timerSMH.Hours:00}:{timerSMH.Minutes:00}:{timerSMH.Seconds:00}.{timerSMH.MilliSeconds:00}";
 
             }
