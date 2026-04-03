@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Taimer
 {
-    //الكود إندومي , الي فيه حيل يعدله    
+    
     public partial class Form1 : Form
     {
         public Form1()
